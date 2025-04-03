@@ -7,7 +7,13 @@ import { loginFalse, loginTrue } from "../redux/LoginSlice"
 import { Link, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import { setUser } from "../redux/UserSlice"
-
+import { MdArrowBackIosNew } from "react-icons/md";
+import { GoHomeFill } from "react-icons/go";
+import { FaUser } from "react-icons/fa";
+import { IoHeart } from "react-icons/io5";
+import { IoBagCheck } from "react-icons/io5";
+import { IoMdLogOut } from "react-icons/io";
+import { IoMdLogIn } from "react-icons/io";
 const Nav_bar = () => {
   const navigate=useNavigate()
   
@@ -49,17 +55,21 @@ useEffect(() => {
   
   {/* /// */}
 <div className="w-fit pr-6 h-full flex md:gap-x-3 gap-x-2 justify-center items-center">
-    
-   <Link to={'/'} className="md:text-xl"><ion-icon name="home"></ion-icon></Link>
+ <button className='text-blue-500 bg-gray-100 p-2 border rounded-full' onClick={()=>{
+   navigate(-1)
+   }}><MdArrowBackIosNew/></button>
+   <Link to={'/'} className="md:text-xl"><GoHomeFill />
+   </Link>
+  
         
 {
-         localStorage.getItem("Ture")&&<Link to={"/update/profile"} className="md:text-xl text-blue-900"><ion-icon name="person-outline"></ion-icon></Link>
+         localStorage.getItem("Ture")&&<Link to={"/update/profile"} className="md:text-xl text-blue-900"><FaUser size={15} /></Link>
  }
       
      
-         <Link className=" tpx-3 font-semibold p-1 " to={'/like'}><ion-icon name="heart"></ion-icon></Link>
+         <Link className=" tpx-3 font-semibold p-1 " to={'/like'}><IoHeart /></Link>
 
-         <Link to={"/order/ture"} className="md:text-xl text-blue-900"><ion-icon name="bag-outline"></ion-icon></Link>
+         <Link to={"/order/ture"} className="md:text-xl text-blue-900"><IoBagCheck size={15} /></Link>
 
          {
           localStorage.getItem("Ture")?<button onClick={()=>{
@@ -69,7 +79,7 @@ useEffect(() => {
              dispatch(setUser(null))
             navigate(`${window.location.pathname}`)
             localStorage.removeItem("yes")
-          }}  className="md:text-xl text-blue-900"><ion-icon name="log-out-outline"></ion-icon></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><ion-icon name="log-in-outline"></ion-icon></button>
+          }}  className="md:text-xl text-blue-900"><IoMdLogOut size={15}/></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><IoMdLogIn  size={15}/></button>
          }
          
       </div> 

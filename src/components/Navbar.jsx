@@ -9,6 +9,15 @@ import { Link, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import {setUser} from '../redux/UserSlice'
 import axios from "axios"
+
+import { IoIosNotifications } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import { IoHeart } from "react-icons/io5";
+import { IoBagCheck } from "react-icons/io5";
+import { IoMdLogOut } from "react-icons/io";
+import { IoMdLogIn } from "react-icons/io";
+import { FaGripLines } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 const Navbar = () => {
   const navigate=useNavigate()
   
@@ -97,7 +106,7 @@ const SeenNotification=async()=>{
          <a href="#Contact" className="text-gray-600 hover:text-gray-800">Contact</a>
    </div>
 
-   <button onClick={()=>setMenu(!menu)} className="text-xl lg:hidden block">{menu?<ion-icon name="close-outline"></ion-icon>:<ion-icon name="reorder-two-outline"></ion-icon>}</button>
+   <button onClick={()=>setMenu(!menu)} className="text-xl lg:hidden block">{menu?<IoMdClose />:<FaGripLines />}</button>
 
    
    {/* /// */}
@@ -107,14 +116,14 @@ const SeenNotification=async()=>{
      { localStorage.getItem("Ture")&&<Link to={"/admin"} className="px-3 py-1 sm:py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Admin</Link>}
          
  {
-          localStorage.getItem("Ture")&&<Link to={"/update/profile"} className="md:text-xl text-blue-900"><ion-icon name="person-outline"></ion-icon></Link>
+          localStorage.getItem("Ture")&&<Link to={"/update/profile"} className="md:text-xl text-blue-900"><FaUser size={15}/></Link>
   }
        
         <button onClick={()=>{
            setOpen(!open)
            SeenNotification()
            }} className="relative md:text-xl text-blue-800">
-           <h3><ion-icon name="notifications-outline"></ion-icon></h3>
+           <h3><IoIosNotifications /></h3>
            <p className="absolute top-4 text-green-700 font-semibold left-[.5rem] rounded-full text-[13px]">{totalNotices}</p>
            <div className={`absolute ${open?"translate-y-0":"-translate-y-[100rem]"}  -left-52 z-30 w-72 top-12 rounded shadow-lg shadow-zinc-500 max-h-96 h-fit bg-green-100 flex duration-300 flex-col gap-y-2 overflow-scroll p-2`}>
              
@@ -143,9 +152,9 @@ const SeenNotification=async()=>{
  
            </div>
           </button>
-          <Link className=" tpx-3 font-semibold p-1 " to={'/like'}><ion-icon name="heart"></ion-icon></Link>
+          <Link className=" tpx-3 font-semibold p-1 " to={'/like'}><IoHeart/></Link>
  
-          <Link to={"/order/ture"} className="md:text-xl text-blue-900"><ion-icon name="bag-outline"></ion-icon></Link>
+          <Link to={"/order/ture"} className="md:text-xl text-blue-900"><IoBagCheck/></Link>
  
           {
            localStorage.getItem("Ture")?<button onClick={()=>{
@@ -155,7 +164,7 @@ const SeenNotification=async()=>{
              dispatch(setUser(null))
              navigate('/')
              localStorage.removeItem("yes")
-           }}  className="md:text-xl text-blue-900"><ion-icon name="log-out-outline"></ion-icon></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><ion-icon name="log-in-outline"></ion-icon></button>
+           }}  className="md:text-xl text-blue-900"><IoMdLogOut/></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><IoMdLogIn/></button>
           }
           
        </div> 

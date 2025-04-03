@@ -14,6 +14,8 @@ import {WhatsappShareButton} from "react-share";
 import Ture_Card from "../components/Ture_Card"
 import singleimage1 from '../assets/single1.avif'
 import singleimage2 from '../assets/single2.png'
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const Single_Ture = () => {
   const {id}=useParams()
@@ -205,7 +207,10 @@ const Single_Ture = () => {
   }
   useEffect(()=>{
      getuserDetailes()
+     window.scrollTo(0, 0)
   },[Ture,id])
+
+
 
   return (
     <>
@@ -217,7 +222,7 @@ const Single_Ture = () => {
               <div className="w-full h-[33rem] gap-x-3 md:pt-6  flex md:flex-row flex-col  *:h-full">
                   <div className="w-full h-96 relative p-3 bg-white border rounded shadow">
                     <img src={ChangeImg} alt="" className="w-full h-full object-cover object-center" />
-                   { Likes.includes(user)?<button onClick={()=>UnlikeTour(Ture?._id)} className="absolute top-6 right-6 text-3xl  text-red-600 z-30"><ion-icon name="heart"></ion-icon></button>:<button onClick={()=>LikeTour(Ture?._id)} className="absolute top-6 right-6 text-3xl text-white z-30"><ion-icon name="heart-outline"></ion-icon></button>}
+                   { Likes.includes(user)?<button onClick={()=>UnlikeTour(Ture?._id)} className="absolute top-6 right-6 text-3xl  text-red-600 z-30"><FaHeart size={20}/></button>:<button onClick={()=>LikeTour(Ture?._id)} className="absolute top-6 right-6 text-3xl text-white z-30"><FaRegHeart size={20}/></button>}
                   </div>
 
                   <div className="md:w-40 cursor-pointer flex md:flex-col flex-row  items-center  gap-1">
@@ -436,9 +441,11 @@ No Drinking
             </div>
          
           </div>
+         
+    
       </div>
 
-
+      
       
     </>
   )
