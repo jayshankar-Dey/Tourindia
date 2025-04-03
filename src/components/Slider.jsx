@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Rating } from '@mui/material';
 
 const Slider = () => {
-  const base="https://tourindia-backend-tc99.onrender.com/api"
+  const base=import.meta.env.VITE_BASE_API
   const[ture,setTure]=useState([])
  
   ///getTurisim

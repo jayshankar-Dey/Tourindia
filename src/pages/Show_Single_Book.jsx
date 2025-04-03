@@ -1,20 +1,22 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Nav_bar from "../components/Nav_bar"
 import { Button, Container, Dialog, Rating } from "@mui/material"
 import toast from "react-hot-toast"
 
 const Show_Single_Book = () => {
-    const base="https://tourindia-backend-tc99.onrender.com/api"
+  const navigate=useNavigate()
+    const base=import.meta.env.VITE_BASE_API
     const [books,setBooks]=useState([])
     const[rating,setRating] =useState("") 
     const[change,setChange] = useState("")
     const[open,setOpen] = useState(false)
     const[reson,setReson]=useState("")
     const{id}=useParams()
-    console.log("Booking",books)
+    const[user,setUser]=useState({})
+  
   
     const getBook =async () =>{
       const res=await axios.get(`${base}/getBook/${id}`,{
@@ -85,14 +87,30 @@ const Show_Single_Book = () => {
       toast.success("Booking canceled")
       setChange(res.data)
   }
+
+
+   ///get user information
+   const getuserDetailes=async()=>{
+    const res=await axios.get(`${base}/getUserdetailes`,{
+      headers:{
+          Authorization:`Bearer ${localStorage.getItem('Ture')}`,
+      }
+    })
+    const data=res.data.data
+  setUser(data)
+    
+  }
+  useEffect(()=>{
+     getuserDetailes()
+  },[open])
   
   return (
     <>
     <Nav_bar/>
-   <div className="bg-zinc-200 h-[93vh]">
+   <div className="bg-zinc-200 md:h-[93vh] h-fit">
    <Container className="flex justify-center items-center pt-10 ">
 
-       <div className="md:h-[26rem] bg-white rounded border shadow flex md:justify-between justify-center items-center md:flex-row flex-col">
+       <div className="md:h-[35rem] bg-white rounded border shadow flex md:justify-between justify-center items-center md:flex-row flex-col">
              <div className="h-full w-72 p-2">
                    <img src={books?.image} alt=""  className="h-full w-full object-cover object-center"/>
                    
@@ -125,7 +143,17 @@ const Show_Single_Book = () => {
              }
               </>
             }
-               </div> </span>:<span className="text-green-500 p-2 flex gap-x-5 font-semibold"> Booking Continue  <Button onClick={()=>setOpen(!open)} size="small" variant="contained">Cancel</Button> </span>}
+               </div> </span>:<span className="text-green-500 p-2 flex gap-x-5 font-semibold"> Booking Continue  <Button onClick={()=>{
+                 if(!user?.accountholdername || !user?.accountno || !user?.address || !user?.email || !user?.pincode
+                  || !user?.
+                  state || !user?.
+                  name||!user?.
+                  IFSC){
+                  navigate('/update/profile')
+                  toast.error("please update your profile")
+                 }
+                setOpen(!open)
+                }} size="small" variant="contained">Cancel</Button> </span>}
                </h1>
 }
            { books?.cancel&&<div>
@@ -158,13 +186,32 @@ const Show_Single_Book = () => {
              </div>
             
             
-             <div className="md:w-96 p-2">
+             <div className="md:w-96 p-2 overflow-y-scroll">
        {
                  books?.users?.map((user,i)=>(
                    <h1 key={i} className="text-sm rounded-md shadow-xl p-1 my-1 bg-blue-500 text-white">User {i+1} : {user.name} <span className="ml-5 underline">age: {user.age}</span> </h1>
                  ))
                 
                }
+
+               <h2 className="border mt-10 bg-zinc-100 rounded  border-red-400 p-3 text-red-500 text-sm">
+               <span className="font-semibold text-lg border-b">Cancellation Policy :</span>
+               <br></br>
+          
+To use easy cancellation feature for your booking please follow the following guidelines:
+<br></br>
+Non Refundable if cancellation is made less than 12 hours from the booking day.
+<br></br>
+50% Refundable if cancellation is made between 12 hours to 24 hours from the booking day.
+<br></br>
+70% Refundable if cancellation is made between 24 hours to 36 hours from the booking day.
+<br></br>
+90% Refundable if cancellation is made between 36 hours to 48 hours from the booking day.
+<br></br>
+100% Refundable if cancellation is made 2 days before the booking day.
+               </h2>
+
+              
        </div>
        </div>
        

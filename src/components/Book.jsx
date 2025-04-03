@@ -8,7 +8,7 @@ import { useSelector } from "react-redux"
 
 
 const Book = ({Ture,image,setBookPopup}) => {
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
    const {socket}=useSelector(state=>state.socket)
     const[open,setopen]=useState(false)
     const [name,setName] = useState("")

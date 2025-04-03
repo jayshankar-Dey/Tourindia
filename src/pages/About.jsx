@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import Navbar from "../components/Nav_bar"
 import axios from "axios"
 import { Container } from "@mui/material"
-
+import PrivaciPolici from "../components/PrivaciPolici"
 
 const About = () => {
-     const base="https://tourindia-backend-tc99.onrender.com/api"
+     const base=import.meta.env.VITE_BASE_API
     const[about,setAbout]=useState([])
     ///get about
   const getAbout=async()=>{
@@ -45,7 +45,16 @@ const About = () => {
                         ))
                     }
                 </div>
-               
+                {/* ///Privacy section   */}
+   <section id="Privacy" className="">
+    <div className="flex justify-center text-red-500 p-3   font-bold md:text-2xl text-xl    flex-col "> 
+      
+
+    </div>
+   <div className=" flex    p-3  mx-auto">
+   <PrivaciPolici/>
+    </div>
+   </section>
             </div>
 
 

@@ -6,7 +6,7 @@ import BlogeCard from "../components/BlogeCard"
 
 
 const BlogPage = () => {
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
      const[state,setState]=useState("")
      const[place,setPlace]=useState("")
      const[Blog,setBlog]=useState([])

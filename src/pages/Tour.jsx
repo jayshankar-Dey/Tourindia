@@ -13,7 +13,7 @@ import toast from "react-hot-toast"
 
 
 const Tour = () => {
- const base="https://tourindia-backend-tc99.onrender.com/api"
+ const base=import.meta.env.VITE_BASE_API
   const[ture,setTure]=useState([])
   const[state,setState]=useState("")
   const[place,setPlace]=useState("")
@@ -48,7 +48,7 @@ const Tour = () => {
 
   return (
     <>
-    <section id="Tour" className=" overflow-y-scroll bg-zinc-100">
+    <section id="Tour" className=" overflow-y-scroll  bg-zinc-100">
       <Navbar/>
     
       <div className=" mx-auto p-2 flex border mt-3  shadow overflow-x-scroll justify-center items-center gap-x-2 bg-white md:w-[50rem] sm:flex-row flex-col rounded">
@@ -59,14 +59,14 @@ const Tour = () => {
     </section>
  
 {/* ///ture part */}
-<section id="Ture" className=" bg-zinc-100">
+<section id="Ture" className=" bg-zinc-100 min-h-[80vh]">
   
    <div className="flex justify-center flex-wrap text-zinc-600 p-3  items-center font-bold md:text-2xl text-xl"> 
       <h1> Tour</h1>
     </div>
    <div className="lg:w-[80%]  justify-center  flex flex-wrap gap-x-4 p-3 w-full mx-auto">
     {
-      ture.length===0?<h1 className="text-xl text-red-400 animate-bounce">Please Enter Valide Search..</h1> : ture.map((t,i)=><Ture_Card key={i} ture={t}/>)
+      ture.length===0?<h1 className="text-xl text-blue-400 animate-bounce">No data found....</h1> : ture.map((t,i)=><Ture_Card key={i} ture={t}/>)
     }
     </div>
  

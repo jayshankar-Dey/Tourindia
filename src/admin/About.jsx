@@ -7,7 +7,7 @@ import Update_About from "../AdminComponents/Update_About";
 
 
 const About = () => {
-  const base = "https://tourindia-backend-tc99.onrender.com/api";
+  const base = import.meta.env.VITE_BASE_API
   const[open,setOpen]=useState(false)
   const [name,setName]=useState("")
   const [des,setDes]=useState("")

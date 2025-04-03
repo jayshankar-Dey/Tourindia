@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 
 const Update_About = ({setUpdatePopup,id,change,data}) => {
-    const base = "https://tourindia-backend-tc99.onrender.com/api";
+    const base = import.meta.env.VITE_BASE_API
     const [name,setName]=useState("")
     const [des,setDes]=useState("")
     const [file,setfiles]=useState("")

@@ -5,7 +5,7 @@ import axios from "axios"
 
 
 const Contact = () => {
-    const base="https://tourindia-backend-tc99.onrender.com/api"
+    const base=import.meta.env.VITE_BASE_API
     const[contact,setContact]=useState([])
 
     useEffect(()=>{

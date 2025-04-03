@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import Aos from "aos";
 import "aos/dist/aos.css"
 import { Link } from "react-router-dom";
+import aboutimage from '../assets/about.webp'
 
 const About = ({About}) => {
   
@@ -15,12 +16,12 @@ const About = ({About}) => {
       });
   return (
     <>
-      <div  className="flex  md:flex-row-reverse flex-col">
-           <div data-aos="fade-right" className="md:w-1/2 w-full bg-white overflow-hidden shadow border *:w-full *:p-1 p-1 gap-x-2 *:object-cover *:object-center  *:h-60">
+      <div  className="flex  md:flex-row-reverse  flex-col bg-white shadow">
+           <div data-aos="fade-right" className="md:w-1/2 w-full bg-white overflow-hidden shadow  *:w-full *:p-1 p-1 gap-x-2 *:object-cover *:object-center  *:h-60">
                 {
                   About?.image?<img src={About.image.url} alt=""  />:<img src="https://www.traveldailynews.asia/wp-content/uploads/2024/01/Tourism-in-Thailand.png" alt="" className="duration-300 hover:scale-105 cursor-pointer" />
                 }
-                <img src="https://nextvacay.com/wp-content/uploads/2022/07/KW-why-travel-is-important.jpg.webp" alt="" />
+                <img src={aboutimage} alt="" />
            </div>
            <div data-aos="fade-left" className="md:w-1/2 p-4 w-full">
              <div className="flex font-semibold flex-col h-full justify-start items-start gap-y-3">

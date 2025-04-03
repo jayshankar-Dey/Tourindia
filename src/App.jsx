@@ -1,8 +1,9 @@
-import { lazy } from "react"
+import { lazy, useState } from "react"
+import {BrowserRouter,Routes ,Route} from 'react-router-dom'
 const Home = lazy(()=>import("./pages/Home"))
 import AdminHome from "./admin/Home"
 //import Admin from  "../src/admin/Home"
-import {BrowserRouter,Routes ,Route} from 'react-router-dom'
+
 const Single_Ture = lazy(()=>import("./pages/Single_Ture"))
 const BookShow = lazy(()=>import("./pages/BookShow"))
 import { Toaster } from 'react-hot-toast';
@@ -25,14 +26,17 @@ import {setUser} from './redux/UserSlice'
 import ProtectedRoute from './ProtectedRoute'
 import { Suspense } from "react"
 import Loading from "./components/Loading"
+
 const Galery=lazy(()=>import('./pages/GaleryPage'))
 const Blogs=lazy(()=>import('./pages/BlogPage'))
 
 const App = () => {
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+ 
+   const base=import.meta.env.VITE_BASE_API
+   
   const dispatch=useDispatch()
-  dispatch(setSocket(io("https://tourindia-backend-tc99.onrender.com")))
-
+  dispatch(setSocket(io(import.meta.env.VITE_MAIN_URL)))
+ 
   useEffect(() => {
   const getLoginUser=async()=>{
    try {
@@ -42,7 +46,9 @@ const App = () => {
       }
     })
     const data=res.data.data
+ 
     dispatch(setUser(data))
+   
    } catch (error) {
     console.log(error)
    }
@@ -52,9 +58,12 @@ const App = () => {
     getLoginUser()
   }
   }, [])
+
+ 
   return (
     <BrowserRouter>
     <Toaster/>
+   
     <Suspense fallback={<Loading/>}>
 
      <Routes>

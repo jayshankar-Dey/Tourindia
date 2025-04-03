@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const Chat = () => {
-      const base="https://tourindia-backend-tc99.onrender.com/api"
+      const base=import.meta.env.VITE_BASE_API
       const[ChatUser,setChatUser]=useState([])
       const{socket}= useSelector(state=>state.socket)
       const[open,setOpen]=useState(false)

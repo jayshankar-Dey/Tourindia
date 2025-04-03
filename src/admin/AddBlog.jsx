@@ -7,7 +7,7 @@ import toast from "react-hot-toast"
 
 
 const AddBlog = () => {
-    const base="https://tourindia-backend-tc99.onrender.com/api"
+    const base=import.meta.env.VITE_BASE_API
     const [open,setopen]=useState(false)
     const[Loading,setLoading]=useState(false)
     const[name,setName]=useState("")

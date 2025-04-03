@@ -7,13 +7,16 @@ import axios from "axios"
 import { useState } from "react"
 import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 //import { useNavigate } from "react-router-dom"
 const Login = () => {
 //const navigate=useNavigate()
-const base="https://tourindia-backend-tc99.onrender.com/api"
+const base=import.meta.env.VITE_BASE_API
 const[email,setEmail]=useState("")
 const[password,setPassword]=useState("")
 const dispatch=useDispatch()
+const navigate=useNavigate()
+
 ////login
 const handleLogin=async(e)=>{
 e.preventDefault()
@@ -25,7 +28,8 @@ e.preventDefault()
     localStorage.setItem("Ture",res.data.data.token)
     localStorage.setItem("id",res.data.data.id)
     dispatch(loginFalse())
-    location.reload()
+
+    navigate(`${window.location.pathname}`)
    }else{
     toast.error(res.data.message)
     dispatch(loginTrue())

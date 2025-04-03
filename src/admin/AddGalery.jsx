@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 
 const AddGalery = () => {
-    const base = "https://tourindia-backend-tc99.onrender.com/api";
+    const base = import.meta.env.VITE_BASE_API
     const[file,setFile]=useState("")
     const[state,setState]=useState("")
     const[EddetEfile,setEddetFile]=useState("")

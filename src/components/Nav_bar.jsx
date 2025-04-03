@@ -4,10 +4,13 @@ import { Dialog } from "@mui/material"
 import Login from "./Login"
 import Register from "./Register"
 import { loginFalse, loginTrue } from "../redux/LoginSlice"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import { setUser } from "../redux/UserSlice"
 
 const Nav_bar = () => {
+  const navigate=useNavigate()
+  
   const[scrool,setScrool]=useState(false)
   const {socket}=useSelector(state=>state.socket)
   const dispatch=useDispatch()
@@ -63,7 +66,9 @@ useEffect(() => {
             localStorage.removeItem("Ture");
             localStorage.removeItem("id");
             toast.success("logout Succesfully")
-            window.location.reload()
+             dispatch(setUser(null))
+            navigate(`${window.location.pathname}`)
+            localStorage.removeItem("yes")
           }}  className="md:text-xl text-blue-900"><ion-icon name="log-out-outline"></ion-icon></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><ion-icon name="log-in-outline"></ion-icon></button>
          }
          

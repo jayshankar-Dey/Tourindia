@@ -6,7 +6,7 @@ import axios from "axios"
 
 
 const BookShow = () => {
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
    const [books,setBooks]=useState([])
 
    const getBook =async () =>{

@@ -7,7 +7,7 @@ import Galery_Card from "../components/Galery_Card"
 
 
 const GaleryPage = () => {
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
    const[loading,setLoading]=useState(false)
    const[loading1,setLoading1]=useState(false)
   const[state,setState]=useState("")

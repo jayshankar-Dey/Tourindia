@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import Nav_bar from "../components/Nav_bar"
 import { Button, Dialog, Rating } from "@mui/material"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import {toast} from "react-hot-toast"
 import Book from "../components/Book"
@@ -12,14 +12,18 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 import {WhatsappShareButton} from "react-share";
 import Ture_Card from "../components/Ture_Card"
+import singleimage1 from '../assets/single1.avif'
+import singleimage2 from '../assets/single2.png'
 
 const Single_Ture = () => {
   const {id}=useParams()
+  const[User,setUser]=useState({})
+  const navigate=useNavigate()
    const {socket}=useSelector(state=>state.socket)
    //console.log(socket)
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
    const dispatch=useDispatch()
-    const[ChangeImg,setChangeImg]=useState("https://live.staticflickr.com/4232/35724354152_f7f5886729_h.jpg")
+    const[ChangeImg,setChangeImg]=useState(singleimage1)
    const user=localStorage.getItem("id")||""
    const[open,setOpen]=useState(false)
     const[messagePopup,setMessagePopup]=useState(false)
@@ -85,7 +89,6 @@ const Single_Ture = () => {
   })
   const getMessage = async () => {
     const tourId=id
-    console.log(tourId)
     try {
       const response = await axios.get(`${base}/get_user/message/${tourId}`, {
         headers: {
@@ -189,7 +192,21 @@ const Single_Ture = () => {
       getReletedTure()
     }, [Ture,id])
 
-   console.log("releted ture",reletedTure)
+     ///get user information
+   const getuserDetailes=async()=>{
+    const res=await axios.get(`${base}/getUserdetailes`,{
+      headers:{
+          Authorization:`Bearer ${localStorage.getItem('Ture')}`,
+      }
+    })
+    const data=res.data.data
+  setUser(data)
+    
+  }
+  useEffect(()=>{
+     getuserDetailes()
+  },[Ture,id])
+
   return (
     <>
       <Nav_bar/>
@@ -205,7 +222,9 @@ const Single_Ture = () => {
 
                   <div className="md:w-40 cursor-pointer flex md:flex-col flex-row  items-center  gap-1">
                    
-                  {
+                 {
+                  Number(images.length) >0?<>
+                   {
                     images.map((image,index)=>(
                       <div key={index} className="h-24 my-2 w-28 p-2 border shadow bg-white" onClick={()=>setChangeImg(image.url)}>
                           <img src={image.url} alt="" className="w-full h-full object-cover object-center" />
@@ -213,6 +232,19 @@ const Single_Ture = () => {
                     ))
                      
                     }
+                  </>:<>
+                  {
+                    
+                    [1,2,3,4].map((i)=>(
+                      <div key={i} className="h-24 my-2 w-28 p-2 border shadow bg-white" onClick={()=>setChangeImg(singleimage2)}>
+                      <img src={singleimage2} alt="" className="w-full h-full object-cover object-center" />
+                  </div>
+                    ))
+
+                    }
+                  
+                  </>
+                 }
                       
                   </div>
               </div>
@@ -220,6 +252,7 @@ const Single_Ture = () => {
               {/* ///body */}
 
               <div className="bg-white  border shadow w-full md:mt-3 h-full sm:pt-28 md:pt-0 pt-10 md:p-4 p-1">
+               
                  <div className="flex justify-between pt-3">
                  <div>
                  <h1 className="text-2xl font-semibold p-1">{Ture.name}</h1>
@@ -261,8 +294,17 @@ const Single_Ture = () => {
                  <Button  onClick={()=>{
                   
                   if(!localStorage.getItem("Ture")){
+                    
                     dispatch(loginTrue())
                   }else{
+                    if(!User?.accountholdername || !User?.accountno || !User?.address || !User?.email || !User?.pincode
+                      || !User?.
+                      state || !User?.
+                      name||!User?.
+                      IFSC){
+                      navigate('/update/profile')
+                      toast.error("please update your profile")
+                     }
                     setBookPopup(!BookPopup)
                   }
                   }} variant="contained" color="success">Book now</Button>
@@ -276,6 +318,30 @@ const Single_Ture = () => {
                  </div>
 
 
+                {/* /////Rules//////////////////////// */}
+                 <div className="h-fit p-3 text-red-500 mt-3 border border-red-400 rounded bg-zinc-100">
+                   <h1 className="font-bold  text-lg mt-3 border-b ">Rules :
+                   </h1>
+
+                   <p className="text-sm ">
+                   TourIndia provides the services that helps the tourist to acquire more knowledge about the places.
+
+TourIndia is not responsible for any direct or indirect, for any loss, damage or injury to property or person in connection to the provided services by the facility.
+
+Be present at the place before morning 9:00 AM on the booking day 
+
+Management is not responsible for loss of personal belongings or any injuries caused during the travel.
+
+TourIndia is not responsible for any direct or indirect, for any loss, damage or injury to property or person in connection to the provided services by the facility
+
+Additional Terms & Conditions
+No Smoking
+
+No Drinking
+
+
+                   </p>
+                </div>
 
                  <div className="flex gap-2 bg-white flex-col lg:flex-row">
 
@@ -371,6 +437,9 @@ const Single_Ture = () => {
          
           </div>
       </div>
+
+
+      
     </>
   )
 }

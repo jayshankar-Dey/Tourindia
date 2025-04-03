@@ -5,16 +5,19 @@ import Login from "./Login"
 import Register from "./Register"
 import { loginFalse, loginTrue } from "../redux/LoginSlice"
 // import MenuBar from "./MenuBar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import {setUser} from '../redux/UserSlice'
 import axios from "axios"
 const Navbar = () => {
+  const navigate=useNavigate()
+  
   const[menu,setMenu]=useState(false)
   const[scrool,setScrool]=useState(false)
   const {socket}=useSelector(state=>state.socket)
   const {user}=useSelector(state=>state.user)
   const[change,setChange] = useState("")
-   const base="https://tourindia-backend-tc99.onrender.com/api"
+   const base=import.meta.env.VITE_BASE_API
   const dispatch=useDispatch()
   const[logintrue,setLoginTrue]=useState(true)
   const [open, setOpen] = useState(false)
@@ -74,7 +77,7 @@ const SeenNotification=async()=>{
   }
 }
 
-console.log(user)
+
 
   return (
     <>
@@ -101,7 +104,7 @@ console.log(user)
  <div className="w-fit pr-6 h-full flex md:gap-x-3 gap-x-2 justify-center items-center">
      
        
-     { localStorage.getItem("Ture") && user?.admin&&<Link to={"/admin"} className="px-3 py-1 sm:py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Admin</Link>}
+     { localStorage.getItem("Ture")&&<Link to={"/admin"} className="px-3 py-1 sm:py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Admin</Link>}
          
  {
           localStorage.getItem("Ture")&&<Link to={"/update/profile"} className="md:text-xl text-blue-900"><ion-icon name="person-outline"></ion-icon></Link>
@@ -149,7 +152,9 @@ console.log(user)
              localStorage.removeItem("Ture");
              localStorage.removeItem("id");
              toast.success("logout Succesfully")
-             window.location.reload()
+             dispatch(setUser(null))
+             navigate('/')
+             localStorage.removeItem("yes")
            }}  className="md:text-xl text-blue-900"><ion-icon name="log-out-outline"></ion-icon></button>:<button onClick={()=>dispatch(loginTrue())} className="md:text-xl text-blue-900"><ion-icon name="log-in-outline"></ion-icon></button>
           }
           
@@ -196,3 +201,5 @@ console.log(user)
 }
 
 export default Navbar
+
+// className={`flex absolute z-30 duration-300 overflow-hidden  ${menu?"h-[21rem]":"h-0 "} border-t-2 bg-white w-screen justify-center top-[4.4rem] -left-0 *:w-full *:p-4  *:justify-center *:flex *:items-center flex-col lg:hidden *:duration-300 `}

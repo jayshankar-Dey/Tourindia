@@ -13,8 +13,10 @@ import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 
+
+
 const Home = () => {
- const base="https://tourindia-backend-tc99.onrender.com/api"
+ const base=import.meta.env.VITE_BASE_API
   const[loading,setLoading]=useState(false)
   const[ture,setTure]=useState([])
   const[state,setState]=useState("")
@@ -71,6 +73,7 @@ const Home = () => {
     <Navbar/>
     <Slider/>
     </section>
+    
     <section id="Ture" className="  ">
      
       <div className=" mx-auto p-2 flex border mt-3  shadow overflow-x-scroll justify-center items-center gap-x-2 bg-white md:w-[50rem] sm:flex-row flex-col rounded">
@@ -87,9 +90,9 @@ const Home = () => {
    <div className="flex justify-center text-zinc-600 p-2  items-center font-bold md:text-3xl text-2xl  "> 
       <h1> Tour</h1>
     </div>
-   <div className="lg:w-[80%]  justify-center flex flex-wrap gap-x-4 p-3 w-full mx-auto">
+   <div className="lg:w-[80%]   justify-center flex flex-wrap gap-x-4 p-3 w-full mx-auto">
     {
-      ture.length===0?<h1 className="text-2xl text-red-400 animate-bounce">Please Enter existing place name... </h1> : ture.map((t,i)=><Ture_Card key={i} ture={t}/>)
+      ture.length===0?<h1 className="text-2xl text-blue-400 animate-bounce">No data found....</h1> : ture.map((t,i)=><Ture_Card key={i} ture={t}/>)
     }
     </div>
  
@@ -111,6 +114,8 @@ const Home = () => {
    <About About={about}/>
     </div>
    </section>
+
+  
 
 {/* ///contact part */}
 <section id="Contact" className=" ">

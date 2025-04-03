@@ -5,7 +5,7 @@ import toast from "react-hot-toast"
 
 
 const UpdateProfile = () => {
-    const base="https://tourindia-backend-tc99.onrender.com/api"
+    const base=import.meta.env.VITE_BASE_API
     const[state,setstate]=useState("")
     const[address,setaddress]=useState("")
     const[pincode,setpincode]=useState("")
@@ -62,13 +62,13 @@ const UpdateProfile = () => {
        {/* state, address, pincode, accountno, IFSC, accountholdername */}
        <div className="flex md:flex-row gap-3 flex-col gap-x-3 *:p-3 *:w-96 *:outline-none  *:border-b-2  *:border-zinc-400 m-5">
         <input type="text" value={name}  className="" placeholder="Name" onChange={(e)=>setName(e.target.value)}/>
-        <input type="text" value={email}  className="" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
+        <input type="text" value={email} readOnly   className="bg-zinc-100" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
         </div>
 
 
         <div className="flex md:flex-row gap-3 flex-col gap-x-3 *:p-3 *:w-96 *:outline-none  *:border-b-2  *:border-zinc-400 m-5">
         <input type="text" value={state}  className="" placeholder="State" onChange={(e)=>setstate(e.target.value)}/>
-        <input type="text" value={pincode}  className="" placeholder="Pincode" onChange={(e)=>setpincode(e.target.value)}/>
+        <input type="number" value={pincode}  className="" placeholder="Phone number" onChange={(e)=>setpincode(e.target.value)}/>
         </div>
 
         <div className="flex md:flex-row gap-3 flex-col gap-x-3 *:p-3 *:w-96 *:outline-none  *:border-b-2  *:border-zinc-400 m-5">

@@ -7,7 +7,7 @@ import toast from "react-hot-toast"
 
 
 const UpdateTure = ({open,id}) => {
-  const base="https://tourindia-backend-tc99.onrender.com/api"
+  const base=import.meta.env.VITE_BASE_API
   
     const[name,setName]=useState("")
     const[Ticketprice,setTicketprice]=useState("")

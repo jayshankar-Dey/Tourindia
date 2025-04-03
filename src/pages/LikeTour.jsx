@@ -6,7 +6,7 @@ import Ture_Card from "../components/Ture_Card"
 
 
 const LikeTour = () => {
-     const base="https://tourindia-backend-tc99.onrender.com/api"
+     const base=import.meta.env.VITE_BASE_API
      const[tour,setTour]=useState([])
 
       ///get user information

@@ -8,7 +8,7 @@ import { Avatar, AvatarGroup } from "@mui/material";
 import  UpdateTure  from "../AdminComponents/UpdateTure";
 
 const Home = () => {
-  const base = "https://tourindia-backend-tc99.onrender.com/api";
+  const base = import.meta.env.VITE_BASE_API
   const [open, setopen] = useState(false);
   const [ture, setture] = useState([]);
   const [file, setfiles] = useState([]);
